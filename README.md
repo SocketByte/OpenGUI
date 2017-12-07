@@ -6,20 +6,19 @@ Just use my public repository and set the scope to compile.
 
 There's no any jar file to install on the server. You just compile it with your plugin.
 ```xml
-    <repositories>
+   <repositories>
         <repository>
             <id>opengui</id>
             <url>http://socketbyte.pl/repository</url>
         </repository>
-    </repositories>
+   </repositories>
 ```
 ```xml
     <dependencies>
         <dependency>
             <groupId>pl.socketbyte</groupId>
             <artifactId>opengui</artifactId>
-            <version>1.0-SNAPSHOT</version>
-            <scope>compile</scope>
+            <version>1.1a</version>
         </dependency>
     </dependencies>
 ```

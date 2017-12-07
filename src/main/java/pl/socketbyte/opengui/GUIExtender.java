@@ -6,67 +6,68 @@ import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
-import org.bukkit.event.inventory.*;
+import org.bukkit.event.inventory.InventoryClickEvent;
+import org.bukkit.event.inventory.InventoryCloseEvent;
+import org.bukkit.event.inventory.InventoryDragEvent;
+import org.bukkit.event.inventory.InventoryOpenEvent;
 import org.bukkit.inventory.Inventory;
-import org.bukkit.inventory.ItemStack;
-import org.bukkit.plugin.Plugin;
 import pl.socketbyte.opengui.event.ElementResponse;
 import pl.socketbyte.opengui.event.WindowResponse;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Getter
-public class GUIExtender implements Listener {
+public abstract class GUIExtender implements Listener, WindowResponse {
 
     private final int id;
 
     private final List<FinalItemJob> jobs = new ArrayList<>();
-    private final List<GUIElement> elements = new ArrayList<>();
+    private final Map<Integer, GUIElement> elements = new HashMap<>();
     private GUISettings guiSettings;
     private GUI gui;
     private WindowResponse windowResponse;
 
-    private int lastContentSize = -1;
-
     public GUIExtender(GUI gui) {
         this.gui = gui;
-        this.id = OpenGUI.getGUIs().size();
-        OpenGUI.getGUIs().put(id, this);
+        this.id = OpenGUI.INSTANCE.getGUIs().size();
+        OpenGUI.INSTANCE.getGUIs().put(id, this);
 
         this.guiSettings = new GUISettings();
         this.guiSettings.setCanEnterItems(false);
         this.guiSettings.setCanDrag(false);
 
-        Bukkit.getPluginManager().registerEvents(this, OpenGUI.getInstance());
+        Bukkit.getPluginManager().registerEvents(this, OpenGUI.INSTANCE.getInstance());
     }
 
     public void addEmptyElementResponse(int slot, boolean pullable) {
         GUIElement guiElement = new GUIElement(slot, pullable);
-        elements.add(guiElement);
+        elements.put(slot, guiElement);
     }
 
     public void addElementResponse(int slot, ElementResponse elementResponse) {
-        GUIElement guiElement = new GUIElement();
+        GUIElement guiElement = new GUIElement(slot);
         guiElement.addElementResponse(slot, elementResponse);
-        elements.add(guiElement);
+        elements.put(slot, guiElement);
     }
 
     public void addElementResponse(int slot, boolean pullable, ElementResponse elementResponse) {
-        GUIElement guiElement = new GUIElement();
+        GUIElement guiElement = new GUIElement(slot);
         guiElement.addElementResponse(slot, pullable, elementResponse);
-        elements.add(guiElement);
+        elements.put(slot, guiElement);
     }
 
     public void addElementResponse(int slot, GUIExtenderItem guiExtenderItem) {
-        GUIElement guiElement = new GUIElement();
+        GUIElement guiElement = new GUIElement(slot);
         guiElement.addElementResponse(slot, guiExtenderItem.isPullable(), guiExtenderItem);
-        elements.add(guiElement);
+        elements.put(slot, guiElement);
     }
 
     private void addEmptyElementResponse(int slot) {
         GUIElement guiElement = new GUIElement(slot);
-        elements.add(guiElement);
+        elements.put(slot, guiElement);
     }
 
     public void addWindowResponse(WindowResponse windowResponse) {
@@ -88,7 +89,6 @@ public class GUIExtender implements Listener {
                 || event.getView().getBottomInventory() == null
                 || event.getClickedInventory() == null)
             return;
-
 
         if (event.getView().getTopInventory().equals(getBukkitInventory())
                 && !guiSettings.isCanEnterItems()) {
@@ -221,7 +221,7 @@ public class GUIExtender implements Listener {
     }
 
     private void checkElements(InventoryClickEvent event) {
-        elements.stream()
+        elements.values().stream()
                 .filter(slot -> slot.getSlot() == event.getSlot())
                 .filter(slot -> event.getClickedInventory().equals(getBukkitInventory()))
                 .filter(slot -> event.getView().getTopInventory().equals(getBukkitInventory()))

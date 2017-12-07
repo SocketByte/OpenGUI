@@ -5,8 +5,8 @@ import lombok.Getter;
 @Getter
 public class FinalItemJob {
 
-    private int slot;
-    private GUIExtenderItem guiExtenderItem;
+    private final int slot;
+    private final GUIExtenderItem guiExtenderItem;
 
     public FinalItemJob(int slot, GUIExtenderItem guiExtenderItem) {
         this.slot = slot;

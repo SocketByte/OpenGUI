@@ -1,40 +1,42 @@
 package pl.socketbyte.opengui;
 
+import lombok.Getter;
 import org.bukkit.Bukkit;
-import org.bukkit.Material;
-import org.bukkit.entity.Player;
-import org.bukkit.event.inventory.InventoryClickEvent;
-import org.bukkit.event.inventory.InventoryCloseEvent;
-import org.bukkit.event.inventory.InventoryOpenEvent;
+import org.bukkit.event.Listener;
 import org.bukkit.plugin.Plugin;
+import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
-import org.bukkit.scheduler.BukkitRunnable;
-import org.bukkit.scheduler.BukkitTask;
-import pl.socketbyte.opengui.event.ElementResponse;
-import pl.socketbyte.opengui.event.WindowResponse;
 
 import java.util.HashMap;
 import java.util.Map;
 
-public class OpenGUI  {
+@Getter
+public enum OpenGUI implements Listener {
+    INSTANCE;
 
-    protected static Plugin instance;
-    protected static Plugin getInstance() {
-        return instance;
-    }
+    private Plugin instance;
 
-    private static Map<Integer, GUIExtender> guiMap = new HashMap<>();
+    private Map<Integer, GUIExtender> guiMap = new HashMap<>();
 
-    public static Map<Integer, GUIExtender> getGUIs() {
+    public Map<Integer, GUIExtender> getGUIs() {
         return guiMap;
     }
 
-    public static GUIExtender getGUI(int id) {
+    public GUIExtender getGUI(int id) {
         return guiMap.get(id);
     }
 
-    public static void register(Plugin instance) {
-        OpenGUI.instance = instance;
+    public void register(JavaPlugin instance) {
+        PluginManager pm = Bukkit.getPluginManager();
+        Plugin plugin = null;
+        for (Plugin bukkitPlugin : pm.getPlugins()) {
+            if (bukkitPlugin.equals(instance)) {
+                plugin = bukkitPlugin;
+                break;
+            }
+        }
+        this.instance = plugin;
     }
+
 
 }

@@ -1,5 +1,7 @@
 .idea/
+.evosuite/
 *.iml
 *.iws
+*.tmp
 log/
 target/

@@ -1,4 +1,4 @@
-# OpenGUI ![version](https://img.shields.io/badge/version-1.1a-blue.svg)
+# OpenGUI ![version](https://img.shields.io/badge/version-1.1a-blue.svg) [![Build Status](https://travis-ci.org/SocketByte/OpenGUI.svg?branch=master)](https://travis-ci.org/SocketByte/OpenGUI)
 Simple GUI management solution.
 
 ## Installation (Maven)
@@ -9,7 +9,7 @@ There's no any jar file to install on the server. You just compile it with your 
    <repositories>
         <repository>
             <id>opengui</id>
-            <url>http://socketbyte.pl/repository</url>
+            <url>http://socketbyte.pl/repository/nexus-releases</url>
         </repository>
    </repositories>
 ```
@@ -19,6 +19,7 @@ There's no any jar file to install on the server. You just compile it with your 
             <groupId>pl.socketbyte</groupId>
             <artifactId>opengui</artifactId>
             <version>1.1a</version>
+            <scope>compile</scope>
         </dependency>
     </dependencies>
 ```

@@ -45,7 +45,7 @@ public class YourPluginClass extends JavaPlugin {
     
     public static void showGUI(Player player) {
         // Register the listeners.
-        OpenGUI.register(instance);
+        OpenGUI.INSTANCE.register(instance);
         
         // Create the GUI inventory using our special wrapper.
         GUI gui = new GUI("&cSimple Title", Rows.FIVE);

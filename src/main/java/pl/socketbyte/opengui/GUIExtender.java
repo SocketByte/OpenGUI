@@ -11,6 +11,7 @@ import org.bukkit.event.inventory.InventoryCloseEvent;
 import org.bukkit.event.inventory.InventoryDragEvent;
 import org.bukkit.event.inventory.InventoryOpenEvent;
 import org.bukkit.inventory.Inventory;
+import org.bukkit.inventory.ItemStack;
 import pl.socketbyte.opengui.event.ElementResponse;
 import pl.socketbyte.opengui.event.WindowResponse;
 
@@ -209,6 +210,24 @@ public abstract class GUIExtender implements Listener, WindowResponse {
     }
 
     public void updateInventory() {
+        List<Integer> slots = new ArrayList<>();
+        int temp = 0;
+        for (ItemStack itemStack : getBukkitInventory().getContents()) {
+            temp++;
+            if (itemStack == null || itemStack.getType().equals(Material.AIR))
+                continue;
+
+            int current = temp - 1;
+            slots.add(current);
+        }
+
+        for (int slot : elements.keySet())
+            if (slots.contains(slot))
+                slots.remove((Integer) slot);
+
+        for (int slot : slots)
+            addEmptyElementResponse(slot);
+
         getBukkitInventory().getViewers().forEach(viewer -> ((Player)viewer).updateInventory());
     }
 

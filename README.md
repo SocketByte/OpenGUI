@@ -1,4 +1,4 @@
-# OpenGUI ![version](https://img.shields.io/badge/version-1.1a-blue.svg) [![Build Status](https://travis-ci.org/SocketByte/OpenGUI.svg?branch=master)](https://travis-ci.org/SocketByte/OpenGUI)
+# OpenGUI ![version](https://img.shields.io/badge/version-1.1b-blue.svg) [![Build Status](https://travis-ci.org/SocketByte/OpenGUI.svg?branch=master)](https://travis-ci.org/SocketByte/OpenGUI)
 Simple GUI management solution.
 
 ## Installation (Maven)
@@ -18,7 +18,7 @@ There's no any jar file to install on the server. You just compile it with your 
         <dependency>
             <groupId>pl.socketbyte</groupId>
             <artifactId>opengui</artifactId>
-            <version>1.1a</version>
+            <version>1.1b</version>
             <scope>compile</scope>
         </dependency>
     </dependencies>

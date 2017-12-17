@@ -64,15 +64,16 @@ public class GUI {
         try {
             this.inventory.addItem(itemBuilder.getItem());
         } catch (Exception ignored) { }
-        return getPosition(itemBuilder.getItem().getType());
+        return getPosition(itemBuilder.getItem().getType(), itemBuilder.getItem().getDurability());
     }
 
-    private int getPosition(Material material) {
+    private int getPosition(Material material, int data) {
         try {
             for (int i = 0; i < this.inventory.getContents().length; i++) {
                 ItemStack itemStack = this.inventory.getItem(i);
 
-                if (itemStack.getType().equals(material))
+                if (itemStack.getType().equals(material)
+                        && itemStack.getDurability() == data)
                     return i;
             }
         } catch (Exception ignored) { }

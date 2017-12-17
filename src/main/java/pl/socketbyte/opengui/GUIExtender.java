@@ -121,14 +121,18 @@ public abstract class GUIExtender implements Listener, WindowResponse {
 
     @EventHandler
     public void onInventoryOpen(InventoryOpenEvent e) {
-        if (windowResponse != null)
-            windowResponse.onOpen(e);
+        if (e.getView().getTopInventory().equals(getBukkitInventory())) {
+            if (windowResponse != null)
+                windowResponse.onOpen(e);
+        }
     }
 
     @EventHandler
     public void onInventoryClose(InventoryCloseEvent e) {
-        if (windowResponse != null)
-            windowResponse.onClose(e);
+        if (e.getView().getTopInventory().equals(getBukkitInventory())) {
+            if (windowResponse != null)
+                windowResponse.onClose(e);
+        }
     }
 
     public void setItem(ItemPack... itemPacks) {
@@ -232,6 +236,7 @@ public abstract class GUIExtender implements Listener, WindowResponse {
                     else if (slot.getGuiExtenderItem() != null)
                         slot.getGuiExtenderItem().onClick(event);
                 });
+
     }
 
 

@@ -1,11 +1,9 @@
 package pl.socketbyte.opengui;
 
 import lombok.Getter;
-import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
-import pl.socketbyte.opengui.ColorUtil;
 
 import java.util.Arrays;
 import java.util.List;
@@ -28,12 +26,22 @@ public class ItemBuilder {
         setItem(Material.DIRT, 1);
     }
 
+    public ItemBuilder(ItemStack itemStack) {
+        setItem(itemStack);
+    }
+
     public ItemBuilder(Material material, int amount, int data) {
         setItem(material, amount, (short)data);
     }
 
     public ItemBuilder(Material material, int amount, short data) {
         setItem(material, amount, data);
+    }
+
+    private ItemBuilder setItem(ItemStack itemStack) {
+        item = itemStack;
+        meta = item.getItemMeta();
+        return this;
     }
 
     private ItemBuilder setItem(Material material, int amount, short data) {

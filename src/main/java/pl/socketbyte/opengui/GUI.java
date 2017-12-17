@@ -1,9 +1,7 @@
 package pl.socketbyte.opengui;
 
 import lombok.Getter;
-import lombok.Setter;
 import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
@@ -56,6 +54,10 @@ public class GUI {
                 new GUIHolder(this, Bukkit.createInventory(null, Rows.SIX.getSlots())),
                 Rows.SIX,
                 title);
+    }
+
+    public void openInventory(Player player) {
+        player.openInventory(this.inventory);
     }
 
     public int addItem(ItemBuilder itemBuilder) {

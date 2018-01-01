@@ -66,6 +66,11 @@ public class YourPluginClass extends JavaPlugin {
                     inventoryClickEvent.getWhoClicked().sendMessage(
                             "You can not enter that item!"));
         
+        // Set event to occur when user enters an item successfully
+        simpleGUI.getGuiSettings().setEnteredItemResponse(
+                inventoryClickEvent ->
+                    inventoryClickEvent.getWhoClicked().sendMessage(
+                            "Entered an item!"));
         
         // #1 Set an item to a specified slot and assign an ItemBuilder
         simpleGUI.setItem(0, new ItemBuilder(Material.DIRT, 1).setName("&aTest!"));

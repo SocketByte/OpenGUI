@@ -4,6 +4,7 @@ import lombok.Getter;
 import lombok.Setter;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
+import pl.socketbyte.opengui.event.EnteredItemResponse;
 import pl.socketbyte.opengui.event.NotEnterableItemResponse;
 
 import java.util.ArrayList;
@@ -17,6 +18,7 @@ public class GUISettings {
     private boolean canDrag;
     private final List<ItemStack> enterableItems = new ArrayList<>();
     private NotEnterableItemResponse notEnterableItemResponse;
+    private EnteredItemResponse enteredItemResponse;
 
     public void addEnterableItem(Material material) {
         this.enterableItems.add(new ItemStack(material));

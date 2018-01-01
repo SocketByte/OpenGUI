@@ -102,6 +102,8 @@ public abstract class GUIExtender implements Listener, WindowResponse {
                     && event.getClickedInventory().equals(getBukkitInventory())
                     && event.getCursor() != null
                     && canEnter(event.getCursor())) {
+                if (guiSettings.getEnteredItemResponse() != null)
+                    guiSettings.getEnteredItemResponse().event(event);
                 event.setCancelled(false);
                 return;
             } else if (event.getView().getTopInventory().equals(getBukkitInventory())
@@ -118,6 +120,8 @@ public abstract class GUIExtender implements Listener, WindowResponse {
                     && !event.getClickedInventory().equals(getBukkitInventory())
                     && event.getCurrentItem() != null
                     && canEnter(event.getCurrentItem())) {
+                if (guiSettings.getEnteredItemResponse() != null)
+                    guiSettings.getEnteredItemResponse().event(event);
                 event.setCancelled(false);
                 return;
             } else if (event.getView().getTopInventory().equals(getBukkitInventory())

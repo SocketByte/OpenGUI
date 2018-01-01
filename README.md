@@ -18,7 +18,7 @@ There's no any jar file to install on the server. You just compile it with your 
         <dependency>
             <groupId>pl.socketbyte</groupId>
             <artifactId>opengui</artifactId>
-            <version>1.1b</version>
+            <version>1.1c</version>
             <scope>compile</scope>
         </dependency>
     </dependencies>

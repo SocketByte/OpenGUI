@@ -1,4 +1,4 @@
-# OpenGUI ![version](https://img.shields.io/badge/version-1.1b-blue.svg) [![Build Status](https://travis-ci.org/SocketByte/OpenGUI.svg?branch=master)](https://travis-ci.org/SocketByte/OpenGUI)
+# OpenGUI ![version](https://img.shields.io/badge/version-1.1c-blue.svg) [![Build Status](https://travis-ci.org/SocketByte/OpenGUI.svg?branch=master)](https://travis-ci.org/SocketByte/OpenGUI)
 Simple GUI management solution.
 
 ## Installation (Maven)
@@ -52,6 +52,21 @@ public class YourPluginClass extends JavaPlugin {
         // Create GUIExtender class and provide the GUI information.
         SimpleGUI simpleGUI = new SimpleGUI(gui);
         
+        // Some additional GUI settings like entering/dragging items.
+        simpleGUI.getGuiSettings().setCanEnterItems(true);
+        simpleGUI.getGuiSettings().setCanDrag(true);
+        
+        // Set specific enterable/draggable items
+        simpleGUI.getGuiSettings().addEnterableItem(Material.STONE);
+        simpleGUI.getGuiSettings().addEnterableItem(Material.GOLDEN_APPLE, 1);
+        
+        // Set event to occur when user tries to enter non-enterable item
+        simpleGUI.getGuiSettings().setNotEnterableItemResponse(
+                inventoryClickEvent -> 
+                    inventoryClickEvent.getWhoClicked().sendMessage(
+                            "You can not enter that item!"));
+        
+        
         // #1 Set an item to a specified slot and assign an ItemBuilder
         simpleGUI.setItem(0, new ItemBuilder(Material.DIRT, 1).setName("&aTest!"));
         
@@ -76,7 +91,7 @@ public class YourPluginClass extends JavaPlugin {
         // Add an element response to slot 1 and assign "pullable" value.
         // It means that you can pull out that item from the GUI and take it with you.
         simpleGUI.addElementResponse(1, true, event ->
-                System.out.println("On click event at slot 0!"));
+                System.out.println("On click event at slot 1!"));
         
         // Add WindowResponse event.
         simpleGUI.addWindowResponse(new WindowResponse() {
@@ -114,8 +129,10 @@ public class TestGUI extends GUIExtender {
     public TestGUI() {
         super(new GUI("&cSuper Title", Rows.THREE));
 
-        getGuiSettings().setCanDrag(false);
-        getGuiSettings().setCanEnterItems(false);
+        getGuiSettings().setCanDrag(true);
+        getGuiSettings().setCanEnterItems(true);
+        // Add possible to enter material
+        getGuiSettings().addEnterableItem(Material.STONE);
 
         // Here we can set our GUIExtenderItem class extension as a normal item.
         setItem(0, new TestItem());

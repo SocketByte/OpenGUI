@@ -43,6 +43,12 @@ public abstract class GUIExtender implements Listener, WindowResponse {
         Bukkit.getPluginManager().registerEvents(this, OpenGUI.INSTANCE.getInstance());
     }
 
+    public void setGUI(GUI gui) {
+        this.gui = gui;
+        this.elements.clear();
+        this.jobs.clear();
+    }
+
     public void addEmptyElementResponse(int slot, boolean pullable) {
         GUIElement guiElement = new GUIElement(slot, pullable);
         elements.put(slot, guiElement);
@@ -97,41 +103,43 @@ public abstract class GUIExtender implements Listener, WindowResponse {
                 || event.getClickedInventory() == null)
             return;
 
-        if (!event.isShiftClick()) {
-            if (event.getView().getTopInventory().equals(getBukkitInventory())
-                    && event.getClickedInventory().equals(getBukkitInventory())
-                    && event.getCursor() != null
-                    && canEnter(event.getCursor())) {
-                if (guiSettings.getEnteredItemResponse() != null)
-                    guiSettings.getEnteredItemResponse().event(event);
-                event.setCancelled(false);
-                return;
-            } else if (event.getView().getTopInventory().equals(getBukkitInventory())
-                    && event.getClickedInventory().equals(getBukkitInventory())
-                    && event.getCursor() != null
-                    && !canEnter(event.getCursor())) {
-                if (guiSettings.getNotEnterableItemResponse() != null)
-                    guiSettings.getNotEnterableItemResponse().event(event);
-                event.setCancelled(true);
-                return;
-            }
-        } else {
-            if (event.getView().getTopInventory().equals(getBukkitInventory())
-                    && !event.getClickedInventory().equals(getBukkitInventory())
-                    && event.getCurrentItem() != null
-                    && canEnter(event.getCurrentItem())) {
-                if (guiSettings.getEnteredItemResponse() != null)
-                    guiSettings.getEnteredItemResponse().event(event);
-                event.setCancelled(false);
-                return;
-            } else if (event.getView().getTopInventory().equals(getBukkitInventory())
-                    && !event.getClickedInventory().equals(getBukkitInventory())
-                    && event.getCurrentItem() != null
-                    && !canEnter(event.getCurrentItem())) {
-                if (guiSettings.getNotEnterableItemResponse() != null)
-                    guiSettings.getNotEnterableItemResponse().event(event);
-                event.setCancelled(true);
-                return;
+        if (guiSettings.isCanEnterItems()) {
+            if (!event.isShiftClick()) {
+                if (event.getView().getTopInventory().equals(getBukkitInventory())
+                        && event.getClickedInventory().equals(getBukkitInventory())
+                        && event.getCursor() != null
+                        && canEnter(event.getCursor())) {
+                    if (guiSettings.getEnteredItemResponse() != null)
+                        guiSettings.getEnteredItemResponse().event(event);
+                    event.setCancelled(false);
+                    return;
+                } else if (event.getView().getTopInventory().equals(getBukkitInventory())
+                        && event.getClickedInventory().equals(getBukkitInventory())
+                        && event.getCursor() != null
+                        && !canEnter(event.getCursor())) {
+                    if (guiSettings.getNotEnterableItemResponse() != null)
+                        guiSettings.getNotEnterableItemResponse().event(event);
+                    event.setCancelled(true);
+                    return;
+                }
+            } else {
+                if (event.getView().getTopInventory().equals(getBukkitInventory())
+                        && !event.getClickedInventory().equals(getBukkitInventory())
+                        && event.getCurrentItem() != null
+                        && canEnter(event.getCurrentItem())) {
+                    if (guiSettings.getEnteredItemResponse() != null)
+                        guiSettings.getEnteredItemResponse().event(event);
+                    event.setCancelled(false);
+                    return;
+                } else if (event.getView().getTopInventory().equals(getBukkitInventory())
+                        && !event.getClickedInventory().equals(getBukkitInventory())
+                        && event.getCurrentItem() != null
+                        && !canEnter(event.getCurrentItem())) {
+                    if (guiSettings.getNotEnterableItemResponse() != null)
+                        guiSettings.getNotEnterableItemResponse().event(event);
+                    event.setCancelled(true);
+                    return;
+                }
             }
         }
 
@@ -199,6 +207,11 @@ public abstract class GUIExtender implements Listener, WindowResponse {
         if (e.getView().getTopInventory().equals(getBukkitInventory())) {
             if (windowResponse != null)
                 windowResponse.onClose(e);
+
+            Bukkit.getScheduler().runTaskLater(OpenGUI.INSTANCE.getInstance(), () ->
+                    ((Player) e.getPlayer()).updateInventory(), 5);
+            // I need to update the inventory because minecraft is weird
+            // otherwise you can make the item to.. "stay" in your inventory until you do something with it
         }
     }
 
@@ -310,6 +323,23 @@ public abstract class GUIExtender implements Listener, WindowResponse {
     }
 
     private void checkElements(InventoryClickEvent event) {
+        for (GUIElement element : elements.values()) {
+            int slot = element.getSlot();
+
+            if (slot != event.getSlot())
+                continue;
+            if (!event.getClickedInventory().equals(getBukkitInventory()))
+                continue;
+            if (!event.getView().getTopInventory().equals(getBukkitInventory()))
+                continue;
+
+            event.setCancelled(!element.isPullable());
+            if (element.getElementResponse() != null)
+                element.getElementResponse().onClick(event);
+            else if (element.getGuiExtenderItem() != null)
+                element.getGuiExtenderItem().onClick(event);
+        }
+        /*
         elements.values().stream()
                 .filter(slot -> slot.getSlot() == event.getSlot())
                 .filter(slot -> event.getClickedInventory().equals(getBukkitInventory()))
@@ -321,6 +351,7 @@ public abstract class GUIExtender implements Listener, WindowResponse {
                     else if (slot.getGuiExtenderItem() != null)
                         slot.getGuiExtenderItem().onClick(event);
                 });
+                */
 
     }
 

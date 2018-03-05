@@ -6,7 +6,7 @@
 
     <groupId>pl.socketbyte</groupId>
     <artifactId>OpenGUI</artifactId>
-    <version>1.1c</version>
+    <version>1.1e</version>
 
     <repositories>
         <repository>
@@ -26,11 +26,11 @@
     <distributionManagement>
         <repository>
             <id>nexus-releases</id>
-            <url>http://176.31.8.233:8081/repository/nexus-releases/</url>
+            <url>http://repo.socketbyte.pl/repository/maven-releases/</url>
         </repository>
         <snapshotRepository>
             <id>nexus-snapshots</id>
-            <url>http://176.31.8.233:8081/repository/nexus-snapshots/</url>
+            <url>http://repo.socketbyte.pl/repository/maven-snapshots/</url>
         </snapshotRepository>
     </distributionManagement>
 

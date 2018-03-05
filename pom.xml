@@ -26,11 +26,11 @@
     <distributionManagement>
         <repository>
             <id>nexus-releases</id>
-            <url>http://repo.socketbyte.pl/repository/maven-releases/</url>
+            <url>http://repo.socketbyte.pl/repository/nexus-releases/</url>
         </repository>
         <snapshotRepository>
             <id>nexus-snapshots</id>
-            <url>http://repo.socketbyte.pl/repository/maven-snapshots/</url>
+            <url>http://repo.socketbyte.pl/repository/nexus-snapshots/</url>
         </snapshotRepository>
     </distributionManagement>
 

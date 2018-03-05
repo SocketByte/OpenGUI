@@ -1,7 +1,5 @@
 package pl.socketbyte.opengui;
 
-import lombok.Getter;
-import lombok.Setter;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
 import pl.socketbyte.opengui.event.EnteredItemResponse;
@@ -10,8 +8,6 @@ import pl.socketbyte.opengui.event.NotEnterableItemResponse;
 import java.util.ArrayList;
 import java.util.List;
 
-@Getter
-@Setter
 public class GUISettings {
 
     private boolean canEnterItems;
@@ -30,5 +26,41 @@ public class GUISettings {
 
     public void addEnterableItem(Material material, int data) {
         this.enterableItems.add(new ItemStack(material, 1, (short) data));
+    }
+
+    public boolean isCanEnterItems() {
+        return canEnterItems;
+    }
+
+    public void setCanEnterItems(boolean canEnterItems) {
+        this.canEnterItems = canEnterItems;
+    }
+
+    public boolean isCanDrag() {
+        return canDrag;
+    }
+
+    public void setCanDrag(boolean canDrag) {
+        this.canDrag = canDrag;
+    }
+
+    public List<ItemStack> getEnterableItems() {
+        return enterableItems;
+    }
+
+    public NotEnterableItemResponse getNotEnterableItemResponse() {
+        return notEnterableItemResponse;
+    }
+
+    public void setNotEnterableItemResponse(NotEnterableItemResponse notEnterableItemResponse) {
+        this.notEnterableItemResponse = notEnterableItemResponse;
+    }
+
+    public EnteredItemResponse getEnteredItemResponse() {
+        return enteredItemResponse;
+    }
+
+    public void setEnteredItemResponse(EnteredItemResponse enteredItemResponse) {
+        this.enteredItemResponse = enteredItemResponse;
     }
 }

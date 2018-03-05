@@ -1,9 +1,5 @@
 package pl.socketbyte.opengui;
 
-import lombok.Getter;
-import lombok.Setter;
-
-@Getter
 public enum Rows {
 
     ONE(9),
@@ -13,10 +9,17 @@ public enum Rows {
     FIVE(45),
     SIX(54);
 
-    @Setter
     private int slots;
 
     Rows(int slots) {
+        this.slots = slots;
+    }
+
+    public int getSlots() {
+        return slots;
+    }
+
+    public void setSlots(int slots) {
         this.slots = slots;
     }
 }

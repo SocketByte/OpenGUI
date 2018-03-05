@@ -1,9 +1,7 @@
 package pl.socketbyte.opengui;
 
-import lombok.Getter;
 import pl.socketbyte.opengui.event.ElementResponse;
 
-@Getter
 public class GUIElement {
 
     private final int slot;
@@ -33,6 +31,22 @@ public class GUIElement {
     public void addElementResponse(int slot, GUIExtenderItem guiExtenderItem) {
         this.pullable = guiExtenderItem.isPullable();
         this.guiExtenderItem = guiExtenderItem;
+    }
+
+    public int getSlot() {
+        return slot;
+    }
+
+    public ElementResponse getElementResponse() {
+        return elementResponse;
+    }
+
+    public GUIExtenderItem getGuiExtenderItem() {
+        return guiExtenderItem;
+    }
+
+    public boolean isPullable() {
+        return pullable;
     }
 
     @Override

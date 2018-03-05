@@ -1,11 +1,7 @@
 package pl.socketbyte.opengui;
 
-import lombok.Getter;
-import lombok.Setter;
 import org.bukkit.enchantments.Enchantment;
 
-@Getter
-@Setter
 public class ItemEnchantment {
 
     private Enchantment enchantment;
@@ -24,4 +20,27 @@ public class ItemEnchantment {
         this.unsafe = true;
     }
 
+    public Enchantment getEnchantment() {
+        return enchantment;
+    }
+
+    public void setEnchantment(Enchantment enchantment) {
+        this.enchantment = enchantment;
+    }
+
+    public int getLevel() {
+        return level;
+    }
+
+    public void setLevel(int level) {
+        this.level = level;
+    }
+
+    public boolean isUnsafe() {
+        return unsafe;
+    }
+
+    public void setUnsafe(boolean unsafe) {
+        this.unsafe = unsafe;
+    }
 }

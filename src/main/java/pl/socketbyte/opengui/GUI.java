@@ -1,6 +1,5 @@
 package pl.socketbyte.opengui;
 
-import lombok.Getter;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
@@ -10,7 +9,6 @@ import org.bukkit.inventory.ItemStack;
 
 import java.util.UUID;
 
-@Getter
 public class GUI {
 
     private final UUID uniqueId = UUID.randomUUID();
@@ -111,5 +109,23 @@ public class GUI {
         return uniqueId.toString();
     }
 
+    public UUID getUniqueId() {
+        return uniqueId;
+    }
 
+    public Inventory getInventory() {
+        return inventory;
+    }
+
+    public Rows getRows() {
+        return rows;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public InventoryHolder getHolder() {
+        return holder;
+    }
 }

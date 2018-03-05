@@ -1,6 +1,5 @@
 package pl.socketbyte.opengui;
 
-import lombok.Getter;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
@@ -20,7 +19,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-@Getter
 public abstract class GUIExtender implements Listener, WindowResponse {
 
     private final int id;
@@ -339,21 +337,30 @@ public abstract class GUIExtender implements Listener, WindowResponse {
             else if (element.getGuiExtenderItem() != null)
                 element.getGuiExtenderItem().onClick(event);
         }
-        /*
-        elements.values().stream()
-                .filter(slot -> slot.getSlot() == event.getSlot())
-                .filter(slot -> event.getClickedInventory().equals(getBukkitInventory()))
-                .filter(slot -> event.getView().getTopInventory().equals(getBukkitInventory()))
-                .forEach(slot -> {
-                    event.setCancelled(!slot.isPullable());
-                    if (slot.getElementResponse() != null)
-                        slot.getElementResponse().onClick(event);
-                    else if (slot.getGuiExtenderItem() != null)
-                        slot.getGuiExtenderItem().onClick(event);
-                });
-                */
 
     }
 
+    public int getId() {
+        return id;
+    }
 
+    public List<FinalItemJob> getJobs() {
+        return jobs;
+    }
+
+    public Map<Integer, GUIElement> getElements() {
+        return elements;
+    }
+
+    public GUISettings getGuiSettings() {
+        return guiSettings;
+    }
+
+    public GUI getGui() {
+        return gui;
+    }
+
+    public WindowResponse getWindowResponse() {
+        return windowResponse;
+    }
 }

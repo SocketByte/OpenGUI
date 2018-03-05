@@ -1,6 +1,5 @@
 package pl.socketbyte.opengui;
 
-import lombok.Getter;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
@@ -8,7 +7,6 @@ import org.bukkit.inventory.meta.ItemMeta;
 import java.util.Arrays;
 import java.util.List;
 
-@Getter
 public class ItemBuilder {
 
     private ItemStack item;
@@ -84,6 +82,14 @@ public class ItemBuilder {
     public ItemBuilder update() {
         item.setItemMeta(meta);
         return this;
+    }
+
+    public ItemStack getItem() {
+        return item;
+    }
+
+    public ItemMeta getMeta() {
+        return meta;
     }
 
 }

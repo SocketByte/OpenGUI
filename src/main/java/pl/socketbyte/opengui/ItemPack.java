@@ -1,11 +1,7 @@
 package pl.socketbyte.opengui;
 
-import lombok.Getter;
-import lombok.Setter;
 import pl.socketbyte.opengui.event.ElementResponse;
 
-@Getter
-@Setter
 public class ItemPack {
 
     private int slot;
@@ -32,4 +28,27 @@ public class ItemPack {
         this.elementResponse = elementResponse;
     }
 
+    public int getSlot() {
+        return slot;
+    }
+
+    public void setSlot(int slot) {
+        this.slot = slot;
+    }
+
+    public ItemBuilder getItemBuilder() {
+        return itemBuilder;
+    }
+
+    public void setItemBuilder(ItemBuilder itemBuilder) {
+        this.itemBuilder = itemBuilder;
+    }
+
+    public ElementResponse getElementResponse() {
+        return elementResponse;
+    }
+
+    public void setElementResponse(ElementResponse elementResponse) {
+        this.elementResponse = elementResponse;
+    }
 }

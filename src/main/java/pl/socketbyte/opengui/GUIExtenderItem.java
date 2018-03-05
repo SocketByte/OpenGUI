@@ -1,7 +1,5 @@
 package pl.socketbyte.opengui;
 
-import lombok.Getter;
-import lombok.Setter;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import pl.socketbyte.opengui.event.ElementResponse;

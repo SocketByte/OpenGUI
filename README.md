@@ -27,7 +27,6 @@ There's no any jar file to install on the server. You just compile it with your 
 Download and copy the source-code into your `src` folder.
 
 Keep in mind that you need following dependencies to get it to work.
-- Lombok (version `1.16.18` or higher) https://projectlombok.org/download
 - Bukkit or Spigot engine installed on your server. https://yivesmirror.com/downloads/spigot
 - JDK/JRE 8 or higher. http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html
 ## Compatibility

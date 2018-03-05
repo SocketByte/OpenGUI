@@ -1,8 +1,5 @@
 package pl.socketbyte.opengui;
 
-import lombok.Getter;
-
-@Getter
 public class FinalItemJob {
 
     private final int slot;
@@ -18,4 +15,11 @@ public class FinalItemJob {
         this.guiExtenderItem = guiExtenderItem;
     }
 
+    public int getSlot() {
+        return slot;
+    }
+
+    public GUIExtenderItem getGuiExtenderItem() {
+        return guiExtenderItem;
+    }
 }

@@ -1,6 +1,5 @@
 package pl.socketbyte.opengui;
 
-import lombok.Getter;
 import org.bukkit.Bukkit;
 import org.bukkit.event.Listener;
 import org.bukkit.plugin.Plugin;
@@ -10,7 +9,6 @@ import org.bukkit.plugin.java.JavaPlugin;
 import java.util.HashMap;
 import java.util.Map;
 
-@Getter
 public enum OpenGUI implements Listener {
     INSTANCE;
 
@@ -38,5 +36,12 @@ public enum OpenGUI implements Listener {
         this.instance = plugin;
     }
 
+    public Plugin getInstance() {
+        return instance;
+    }
+
+    public Map<Integer, GUIExtender> getGuiMap() {
+        return guiMap;
+    }
 
 }

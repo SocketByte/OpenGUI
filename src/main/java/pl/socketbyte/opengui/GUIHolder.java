@@ -1,10 +1,8 @@
 package pl.socketbyte.opengui;
 
-import lombok.Getter;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.InventoryHolder;
 
-@Getter
 public class GUIHolder implements InventoryHolder {
 
     private final Inventory inventory;
@@ -18,5 +16,9 @@ public class GUIHolder implements InventoryHolder {
     @Override
     public Inventory getInventory() {
         return inventory;
+    }
+
+    public GUI getGui() {
+        return gui;
     }
 }

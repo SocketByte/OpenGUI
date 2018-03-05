@@ -1,4 +1,4 @@
-# OpenGUI ![version](https://img.shields.io/badge/version-1.1c-blue.svg) [![Build Status](https://travis-ci.org/SocketByte/OpenGUI.svg?branch=master)](https://travis-ci.org/SocketByte/OpenGUI)
+# OpenGUI ![version](https://img.shields.io/badge/version-1.1e-blue.svg) [![Build Status](https://travis-ci.org/SocketByte/OpenGUI.svg?branch=master)](https://travis-ci.org/SocketByte/OpenGUI)
 Simple GUI management solution.
 
 ## Installation (Maven)

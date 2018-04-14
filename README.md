@@ -201,6 +201,7 @@ testGUI.openInventory(player);
 OpenGUI in `1.2` offers Serializable classes that allow to easily configure your GUI from config.yml file.
 
 If you want to use it from config, you need to use different objects.
+
 `SerializableSimpleGUI` instead of `SimpleGUI`
 
 `SerializableGUI` instead of `GUI`
@@ -220,7 +221,7 @@ SerializableSimpleGUI gui = (SerializableSimpleGUI) configuration.get("gui")
 
 Result:
 ```yml
-drop-gui:
+gui:
   canDrag: true
   canEnterItems: true
   enterableItems:

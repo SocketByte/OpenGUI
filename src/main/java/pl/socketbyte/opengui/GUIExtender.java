@@ -227,6 +227,11 @@ public abstract class GUIExtender implements Listener, WindowResponse {
         }
     }
 
+    public void changeItem(int slot, ItemBuilder itemBuilder) {
+        gui.setItem(slot, itemBuilder);
+        updateInventory();
+    }
+
     public void setItem(int slot, ItemBuilder itemBuilder) {
         gui.setItem(slot, itemBuilder);
         addEmptyElementResponse(slot);

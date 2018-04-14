@@ -1,4 +1,4 @@
-# OpenGUI ![version](https://img.shields.io/badge/version-1.1e-blue.svg) [![Build Status](https://travis-ci.org/SocketByte/OpenGUI.svg?branch=master)](https://travis-ci.org/SocketByte/OpenGUI)
+# OpenGUI ![version](https://img.shields.io/badge/version-1.2-blue.svg) [![Build Status](https://travis-ci.org/SocketByte/OpenGUI.svg?branch=master)](https://travis-ci.org/SocketByte/OpenGUI)
 Simple GUI management solution.
 
 ## Installation (Maven)
@@ -18,7 +18,7 @@ There's no any jar file to install on the server. You just compile it with your 
         <dependency>
             <groupId>pl.socketbyte</groupId>
             <artifactId>opengui</artifactId>
-            <version>1.1e</version>
+            <version>1.2</version>
             <scope>compile</scope>
         </dependency>
     </dependencies>
@@ -197,6 +197,102 @@ Now you can show your amazing objects to the player using
 TestGUI testGUI = new TestGUI();
 testGUI.openInventory(player);
 ```
+## Serialization
+OpenGUI in `1.2` offers Serializable classes that allow to easily configure your GUI from config.yml file.
+
+If you want to use it from config, you need to use different objects.
+`SerializableSimpleGUI` instead of `SimpleGUI`
+
+`SerializableGUI` instead of `GUI`
+
+`SerializableItemBuilder` instead of `ItemBuilder`
+
+Congratulations! You can save now your `SerializableSimpleGUI`
+using
+```java
+configuration.set("gui", yourSimpleGUI)
+```
+
+Of course you can read GUI from config like this:
+```java
+SerializableSimpleGUI gui = (SerializableSimpleGUI) configuration.get("gui")
+```
+
+Result:
+```yml
+drop-gui:
+  canDrag: true
+  canEnterItems: true
+  enterableItems:
+  - GOLD_PICKAXE
+  gui:
+    title: '&2&lDrop'
+    actions:
+      # action ID on slot 0 etc.
+      0: on_click_action_0
+      1: on_click_action_1
+      2: on_click_action_2
+      3: on_click_action_3
+      4: on_click_action_4
+      5: on_click_action_5
+    inventory:
+    - slot: 0
+      item:
+        material: DIAMOND
+        amount: 1
+        durability: 0
+        name: null
+        lore: null
+    - slot: 1
+      item:
+        material: GOLDEN_APPLE
+        amount: 1
+        durability: 1
+        name: null
+        lore: null
+    - slot: 2
+      item:
+        material: COAL
+        amount: 48
+        durability: 0
+        name: null
+        lore: null
+    - slot: 3
+      item:
+        material: CHORUS_FLOWER
+        amount: 1
+        durability: 0
+        name: null
+        lore:
+        - Hi!
+        - Boi!
+    - slot: 4
+      item:
+        material: JACK_O_LANTERN
+        amount: 1
+        durability: 0
+        name: '&6Hello!'
+        lore: null
+    - slot: 5
+      item:
+        material: LAPIS_BLOCK
+        amount: 1
+        durability: 0
+        name: null
+        lore: null
+```
+
+Like you can see, OpenGUI offers additional `action id` parameters.
+You can find them in `SerializableSimpleGUI` and use them like this:
+```java
+simpleGUI.hasAction(int slot)
+simpleGUI.getActionFor(int slot) // returns String
+```
+You can use them to append different `ElementResponse` actions for each item.
+It allows to create dynamic GUIs right from your configuration file.
+
+Enchantments are currently not supported. To be added in `1.2b`
+
 ## JUnit
 Project supports JUnit 4.
 Test code is generated automatically using [EvoSuite 1.0.5](http://www.evosuite.org).

@@ -88,20 +88,20 @@ public class GUI {
         this.inventory.setItem(slot, new ItemStack(Material.AIR));
     }
 
-    protected void setInventory(Inventory inventory) {
-        this.inventory = inventory;
-    }
-
-    protected static Inventory createInventory(InventoryHolder holder, Rows rows, String title) {
+    public static Inventory createInventory(InventoryHolder holder, Rows rows, String title) {
         return Bukkit.createInventory(holder,
                 rows.getSlots(),
                 ColorUtil.fixColor(title));
     }
 
-    protected static Inventory createInventory(InventoryHolder holder, int size, String title) {
+    public static Inventory createInventory(InventoryHolder holder, int size, String title) {
         return Bukkit.createInventory(holder,
                 size,
                 ColorUtil.fixColor(title));
+    }
+
+    public void setInventory(Inventory inventory) {
+        this.inventory = inventory;
     }
 
     @Override

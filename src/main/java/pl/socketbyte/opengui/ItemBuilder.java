@@ -1,11 +1,13 @@
 package pl.socketbyte.opengui;
 
 import org.bukkit.Material;
+import org.bukkit.enchantments.Enchantment;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 
 public class ItemBuilder {
 
@@ -36,19 +38,19 @@ public class ItemBuilder {
         setItem(material, amount, data);
     }
 
-    private ItemBuilder setItem(ItemStack itemStack) {
+    public ItemBuilder setItem(ItemStack itemStack) {
         item = itemStack;
         meta = item.getItemMeta();
         return this;
     }
 
-    private ItemBuilder setItem(Material material, int amount, short data) {
+    public ItemBuilder setItem(Material material, int amount, short data) {
         item = new ItemStack(material, amount, data);
         meta = item.getItemMeta();
         return this;
     }
 
-    private ItemBuilder setItem(Material material, int amount) {
+    public ItemBuilder setItem(Material material, int amount) {
         item = new ItemStack(material, amount);
         meta = item.getItemMeta();
         return this;
@@ -75,6 +77,13 @@ public class ItemBuilder {
     public ItemBuilder setEnchantments(List<ItemEnchantment> enchantments) {
         for (ItemEnchantment enchantment : enchantments)
             meta.addEnchant(enchantment.getEnchantment(), enchantment.getLevel(), enchantment.isUnsafe());
+        update();
+        return this;
+    }
+
+    public ItemBuilder setEnchantments(Map<Enchantment, Integer> enchantments) {
+        for (Map.Entry<Enchantment, Integer> entry : enchantments.entrySet())
+            meta.addEnchant(entry.getKey(), entry.getValue(), true);
         update();
         return this;
     }

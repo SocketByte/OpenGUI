@@ -2,14 +2,13 @@ package pl.socketbyte.opengui.serializable;
 
 import org.bukkit.Material;
 import org.bukkit.configuration.serialization.ConfigurationSerializable;
+import org.bukkit.enchantments.Enchantment;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import pl.socketbyte.opengui.ColorUtil;
 import pl.socketbyte.opengui.ItemBuilder;
 
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @SuppressWarnings("unchecked")
 public class SerializableItemBuilder extends ItemBuilder implements ConfigurationSerializable {
@@ -24,10 +23,29 @@ public class SerializableItemBuilder extends ItemBuilder implements Configuratio
         short durability = (short) data.get("durability");
         String name = ColorUtil.fixColor(data.get("name").toString());
         List<String> lore = ColorUtil.fixColor((List<String>) data.get("lore"));
-        //Map<Enchantment, Integer> enchants = (Map<Enchantment, Integer>) data.get("enchants");
+
+        List<String> enchantsList = (List<String>) data.get("enchants");
+        Map<Enchantment, Integer> enchants = new HashMap<>();
+
+        for(String enchant : enchantsList) {
+            String[] part = enchant.split(":");
+            if (part.length < 1)continue;
+
+            Enchantment ench = Enchantment.getByName(part[0]);
+            if(ench == null)continue;
+
+            int level;
+            try {
+                level = Integer.parseInt(part[1]);
+            }
+            catch (NumberFormatException ex) {
+                continue;
+            }
+            enchants.put(ench, level);
+        }
 
         setItem(material, amount, durability);
-        //setEnchantments(enchants);
+        setEnchantments(enchants);
         setLore(lore);
         setName(name);
 
@@ -45,6 +63,12 @@ public class SerializableItemBuilder extends ItemBuilder implements Configuratio
         data.put("name", meta.getDisplayName() == null ? null
                 : meta.getDisplayName().replace("§", "&"));
         data.put("lore", meta.getLore());
+        List<String> enchantsAsList = new ArrayList<>();
+        for (Enchantment enchant : meta.getEnchants().keySet()) {
+            int level = meta.getEnchantLevel(enchant);
+            enchantsAsList.add(enchant.getName() + ":" + level);
+        }
+        data.put("enchants", enchantsAsList);
         //data.put("enchants", meta.getEnchants());
         return data;
     }

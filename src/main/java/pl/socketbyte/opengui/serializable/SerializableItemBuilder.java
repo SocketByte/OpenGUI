@@ -29,10 +29,12 @@ public class SerializableItemBuilder extends ItemBuilder implements Configuratio
 
         for(String enchant : enchantsList) {
             String[] part = enchant.split(":");
-            if (part.length < 1)continue;
+            if (part.length < 1)
+                continue;
 
             Enchantment ench = Enchantment.getByName(part[0]);
-            if(ench == null)continue;
+            if (ench == null)
+                continue;
 
             int level;
             try {
@@ -48,7 +50,6 @@ public class SerializableItemBuilder extends ItemBuilder implements Configuratio
         setEnchantments(enchants);
         setLore(lore);
         setName(name);
-
     }
 
     @Override
@@ -61,7 +62,7 @@ public class SerializableItemBuilder extends ItemBuilder implements Configuratio
         data.put("amount", item.getAmount());
         data.put("durability", item.getDurability());
         data.put("name", meta.getDisplayName() == null ? null
-                : meta.getDisplayName().replace("§", "&"));
+                : ColorUtil.fixColor(meta.getDisplayName()));
         data.put("lore", meta.getLore());
         List<String> enchantsAsList = new ArrayList<>();
         for (Enchantment enchant : meta.getEnchants().keySet()) {
@@ -69,7 +70,6 @@ public class SerializableItemBuilder extends ItemBuilder implements Configuratio
             enchantsAsList.add(enchant.getName() + ":" + level);
         }
         data.put("enchants", enchantsAsList);
-        //data.put("enchants", meta.getEnchants());
         return data;
     }
 }

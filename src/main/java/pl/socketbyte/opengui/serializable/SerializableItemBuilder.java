@@ -8,7 +8,11 @@ import org.bukkit.inventory.meta.ItemMeta;
 import pl.socketbyte.opengui.ColorUtil;
 import pl.socketbyte.opengui.ItemBuilder;
 
-import java.util.*;
+import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 @SuppressWarnings("unchecked")
 public class SerializableItemBuilder extends ItemBuilder implements ConfigurationSerializable {
@@ -64,12 +68,11 @@ public class SerializableItemBuilder extends ItemBuilder implements Configuratio
         data.put("name", meta.getDisplayName() == null ? null
                 : ColorUtil.fixColor(meta.getDisplayName()));
         data.put("lore", meta.getLore());
-        List<String> enchantsAsList = new ArrayList<>();
-        for (Enchantment enchant : meta.getEnchants().keySet()) {
-            int level = meta.getEnchantLevel(enchant);
-            enchantsAsList.add(enchant.getName() + ":" + level);
-        }
-        data.put("enchants", enchantsAsList);
+        data.put("enchants", meta.getEnchants()
+                .keySet()
+                .stream()
+                .map(enchant -> enchant.getName() + ":" + meta.getEnchantLevel(enchant))
+                .collect(Collectors.toList()));
         return data;
     }
 }

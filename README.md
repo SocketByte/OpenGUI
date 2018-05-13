@@ -9,7 +9,7 @@ There's no any jar file to install on the server. You just compile it with your 
    <repositories>
         <repository>
             <id>opengui</id>
-            <url>http://repo.socketbyte.pl/repository/nexus-releases</url>
+            <url>https://repo.socketbyte.pl/repository/nexus-releases/</url>
         </repository>
    </repositories>
 ```
@@ -17,7 +17,7 @@ There's no any jar file to install on the server. You just compile it with your 
     <dependencies>
         <dependency>
             <groupId>pl.socketbyte</groupId>
-            <artifactId>opengui</artifactId>
+            <artifactId>OpenGUI</artifactId>
             <version>1.2</version>
             <scope>compile</scope>
         </dependency>

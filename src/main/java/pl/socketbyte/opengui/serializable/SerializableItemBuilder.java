@@ -24,7 +24,7 @@ public class SerializableItemBuilder extends ItemBuilder implements Configuratio
     public SerializableItemBuilder(Map<String, Object> data) {
         Material material = Material.matchMaterial(data.get("material").toString());
         int amount = (int) data.get("amount");
-        short durability = (short) data.get("durability");
+        short durability = (short) ((int) data.get("durability"));
         setItem(material, amount, durability);
 
         if (data.get("enchants") != null) {

@@ -5,6 +5,7 @@ import org.bukkit.configuration.serialization.ConfigurationSerialization;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
+@SuppressWarnings("unchecked")
 public class ItemSection implements Serializable {
 
     private int slot;
@@ -21,7 +22,7 @@ public class ItemSection implements Serializable {
 
     public ItemSection(Map<String, Object> data) {
         this.slot = (int) data.get("slot");
-        this.itemBuilder = (SerializableItemBuilder) data.get("item");
+        this.itemBuilder = new SerializableItemBuilder((Map<String, Object>) data.get("item"));
     }
 
     @Override

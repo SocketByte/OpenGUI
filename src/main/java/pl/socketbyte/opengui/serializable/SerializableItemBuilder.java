@@ -25,35 +25,40 @@ public class SerializableItemBuilder extends ItemBuilder implements Configuratio
         Material material = Material.matchMaterial(data.get("material").toString());
         int amount = (int) data.get("amount");
         short durability = (short) data.get("durability");
-        String name = ColorUtil.fixColor(data.get("name").toString());
-        List<String> lore = ColorUtil.fixColor((List<String>) data.get("lore"));
+        setItem(material, amount, durability);
 
-        List<String> enchantsList = (List<String>) data.get("enchants");
-        Map<Enchantment, Integer> enchants = new HashMap<>();
+        if (data.get("enchants") != null) {
+            List<String> enchantsList = (List<String>) data.get("enchants");
+            Map<Enchantment, Integer> enchants = new HashMap<>();
 
-        for(String enchant : enchantsList) {
-            String[] part = enchant.split(":");
-            if (part.length < 1)
-                continue;
+            for(String enchant : enchantsList) {
+                String[] part = enchant.split(":");
+                if (part.length < 1)
+                    continue;
 
-            Enchantment ench = Enchantment.getByName(part[0]);
-            if (ench == null)
-                continue;
+                Enchantment ench = Enchantment.getByName(part[0]);
+                if (ench == null)
+                    continue;
 
-            int level;
-            try {
-                level = Integer.parseInt(part[1]);
+                int level;
+                try {
+                    level = Integer.parseInt(part[1]);
+                }
+                catch (NumberFormatException ex) {
+                    continue;
+                }
+                enchants.put(ench, level);
             }
-            catch (NumberFormatException ex) {
-                continue;
-            }
-            enchants.put(ench, level);
+
+            setEnchantments(enchants);
         }
 
-        setItem(material, amount, durability);
-        setEnchantments(enchants);
-        setLore(lore);
-        setName(name);
+        if (data.get("name") != null) {
+            setName(ColorUtil.fixColor(data.get("name").toString()));
+        }
+        if (data.get("lore") != null) {
+            setLore(ColorUtil.fixColor((List<String>) data.get("lore")));
+        }
     }
 
     @Override

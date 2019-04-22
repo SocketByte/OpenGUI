@@ -20,10 +20,10 @@ public class SerializableGUI extends GUI implements Serializable {
     public SerializableGUI(Map<String, Object> data) {
         super(null, (String) data.get("title"));
 
-        List<ItemSection> itemSections = (List<ItemSection>) data.get("inventory");
-
-        for (ItemSection section : itemSections)
+        for (Object o : ((ArrayList) data.get("inventory"))) {
+            ItemSection section = new ItemSection((Map<String, Object>) o);
             setItem(section.getSlot(), section.getItemBuilder());
+        }
     }
 
     public String getActionFor(int slot) {

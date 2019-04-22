@@ -216,7 +216,7 @@ configuration.set("gui", yourSimpleGUI)
 
 Of course you can read GUI from config like this:
 ```java
-SerializableSimpleGUI gui = (SerializableSimpleGUI) configuration.get("gui")
+SerializableSimpleGUI gui = new SerializableSimpleGUI(configuration.getConfigurationSection("gui").getValues(true))
 ```
 
 Result:

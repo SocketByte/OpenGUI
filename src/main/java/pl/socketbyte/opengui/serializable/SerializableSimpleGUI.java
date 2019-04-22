@@ -1,6 +1,7 @@
 package pl.socketbyte.opengui.serializable;
 
 import org.bukkit.Material;
+import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.serialization.ConfigurationSerialization;
 import org.bukkit.inventory.ItemStack;
 import pl.socketbyte.opengui.SimpleGUI;
@@ -17,7 +18,7 @@ public class SerializableSimpleGUI extends SimpleGUI implements Serializable {
     }
 
     public SerializableSimpleGUI(Map<String, Object> data) {
-        super((SerializableGUI) data.get("gui"));
+        super(new SerializableGUI(((ConfigurationSection) data.get("gui")).getValues(true)));
 
         getGuiSettings().setCanDrag((Boolean) data.get("canDrag"));
         getGuiSettings().setCanEnterItems((Boolean) data.get("canEnterItems"));
